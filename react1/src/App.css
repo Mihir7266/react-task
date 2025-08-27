@@ -1,0 +1,88 @@
+/* Global App Layout */
+.App {
+  font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f1f5f9; /* light gray */
+  min-height: 100vh;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  color: #0f172a;
+  margin-bottom: 2rem;
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+/* Sections */
+.section {
+  background: #ffffff;
+  padding: 2rem;
+  margin: 1rem 0;
+  width: 100%;
+  max-width: 900px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+.section h2 {
+  margin-bottom: 1rem;
+  color: #1e293b;
+  font-size: 1.3rem;
+  font-weight: 600;
+  border-left: 4px solid #3b82f6;
+  padding-left: 0.5rem;
+}
+
+/* Grid layout */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+/* Primary button */
+.btn-primary {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #2563eb;
+}
+
+/* Success button */
+.btn-success {
+  background: #22c55e;
+  color: #fff;
+}
+
+.btn-success:hover {
+  background: #16a34a;
+}
+
+/* Danger button */
+.btn-danger {
+  background: #ef4444;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+}

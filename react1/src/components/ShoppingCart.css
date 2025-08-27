@@ -1,0 +1,33 @@
+.shopping-cart {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  max-width: 450px;
+  margin: 1rem auto;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.add-item-form {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.add-item-form input {
+  flex: 1;
+  padding: 6px;
+}
+
+.add-item-form button {
+  padding: 6px 12px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}

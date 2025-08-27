@@ -1,0 +1,20 @@
+.status-container {
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+.loading {
+  color: #2563eb;
+}
+
+.success {
+  color: #16a34a;
+}
+
+.error {
+  color: #dc2626;
+}
+
+.info {
+  color: #475569;
+}
