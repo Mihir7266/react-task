@@ -1,88 +1,124 @@
-/* Global App Layout */
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa, #e4e9f2);
+  color: #222;
+  line-height: 1.5;
+}
+
+/* App Wrapper */
 .App {
-  font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: #f1f5f9; /* light gray */
-  min-height: 100vh;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-h1 {
-  color: #0f172a;
-  margin-bottom: 2rem;
-  font-size: 2.2rem;
-  font-weight: 700;
+/* Header */
+.App > h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 600;
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 40px;
+  letter-spacing: 1px;
 }
 
-/* Sections */
+/* Section Styling */
 .section {
-  background: #ffffff;
-  padding: 2rem;
-  margin: 1rem 0;
-  width: 100%;
-  max-width: 900px;
+  background: #fff;
   border-radius: 16px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.section:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
 }
 
 .section h2 {
-  margin-bottom: 1rem;
-  color: #1e293b;
-  font-size: 1.3rem;
-  font-weight: 600;
-  border-left: 4px solid #3b82f6;
-  padding-left: 0.5rem;
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #333;
+  border-left: 5px solid #007bff;
+  padding-left: 10px;
 }
 
-/* Grid layout */
+/* Card Grid (Welcome Components) */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
 }
 
 /* Buttons */
 button {
-  cursor: pointer;
+  padding: 12px 18px;
   border: none;
-  padding: 8px 16px;
-  border-radius: 8px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+  color: #fff;
+  font-size: 14px;
   font-weight: 500;
-  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 3px 10px rgba(0, 123, 255, 0.3);
 }
 
 button:hover {
+  background: linear-gradient(90deg, #0056b3, #0084ff);
   transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
 }
 
-/* Primary button */
-.btn-primary {
-  background: #3b82f6;
-  color: #fff;
+/* Inputs and Forms */
+input,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 12px;
+  transition: border 0.2s;
 }
 
-.btn-primary:hover {
-  background: #2563eb;
+input:focus,
+textarea:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
 }
 
-/* Success button */
-.btn-success {
-  background: #22c55e;
-  color: #fff;
+textarea {
+  resize: vertical;
+  min-height: 100px;
 }
 
-.btn-success:hover {
-  background: #16a34a;
+/* Smooth Fade-in Animation */
+.section {
+  animation: fadeInUp 0.6s ease both;
 }
 
-/* Danger button */
-.btn-danger {
-  background: #ef4444;
-  color: #fff;
-}
-
-.btn-danger:hover {
-  background: #dc2626;
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

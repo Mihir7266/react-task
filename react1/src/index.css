@@ -1,4 +1,4 @@
-/* Global reset and base styling */
+/* --- Global reset (your code) --- */
 * {
   margin: 0;
   padding: 0;
@@ -9,7 +9,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-  background-color: #ffffff;
+  background-color: #f4f6f9;
   color: #222;
   line-height: 1.5;
 }
@@ -22,4 +22,73 @@ a {
 input,
 button {
   font-family: inherit;
+}
+
+/* --- App Container --- */
+.App {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+/* --- Header --- */
+.App > h1 {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+/* --- Section Styling --- */
+.section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.section h2 {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  color: #444;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 8px;
+}
+
+/* --- Card Grid (used in Welcome components) --- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+/* --- Buttons --- */
+button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #007bff;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+/* --- Inputs and Forms --- */
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+textarea {
+  resize: vertical;
 }

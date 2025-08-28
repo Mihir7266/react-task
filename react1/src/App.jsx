@@ -4,7 +4,8 @@ import UserProfile from "./components/UserProfile";
 import Counter from "./components/Counter";
 import ShoppingCart from "./components/ShoppingCart";
 import UserDashboard from "./components/UserDashboard";
-import StatusMessage from "./components/StatusMessage";
+
+import ContactForm from "./components/ContactForm";
 
 import "./App.css";
 
@@ -43,21 +44,18 @@ function App() {
         <h2>🛒 Shopping Cart</h2>
         <ShoppingCart />
       </div>
+
       <div className="section">
         <h2>📊 User Dashboard</h2>
-<UserDashboard /> 
-
-            
+        <UserDashboard />
       </div>
+
+      
 
       <div className="section">
-        <h2>🔔 Status Messages</h2>
-        <StatusMessage status="loading" />
-        <StatusMessage status="success" />
-        <StatusMessage status="error" />
-        <StatusMessage status="info" />
+        <h2>📩 Contact Form</h2>
+        <ContactForm />
       </div>
-    
     </div>
   );
 }
