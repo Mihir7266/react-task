@@ -1,0 +1,31 @@
+/* આખું કાઉન્ટર સેન્ટર માં */
+div {
+  text-align: center;
+  margin-top: 50px;
+  font-family: Arial, sans-serif;
+}
+
+/* Count value */
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* બટન સ્ટાઇલ */
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  transition: background 0.3s ease;
+}
+
+/* hover effect */
+button:hover {
+  background-color: #0056b3;
+}

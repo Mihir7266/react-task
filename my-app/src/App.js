@@ -1,8 +1,17 @@
 import React from "react";
-import Test1 from "./components/test1/test1";
+import Game from "./components/test1/Game";
+
+import "./App.css";
 
 function App() {
-  return <Test1 />;
+  return (
+    <div className="App">
+      <h2>Click me a fue seconds </h2>
+  <Game />
+     
+     
+    </div>
+  );
 }
 
 export default App;
