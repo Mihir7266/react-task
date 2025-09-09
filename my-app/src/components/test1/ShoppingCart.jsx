@@ -1,129 +1,225 @@
 import React, { useState } from "react";
-import "./ShoppingCart.css";
 
-function ShoppingCart() {
-  const [items, setItems] = useState([
-    { name: "Apple", price: 2 },
-    { name: "Banana", price: 3 },
+function ShoppingApp() {
+  const [cartItems, setCartItems] = useState([]);
+  const [products] = useState([
+    { id: 1, name: "Laptop", price: 999 },
+    { id: 2, name: "Mouse", price: 29 },
+    { id: 3, name: "Keyboard", price: 79 },
+    { id: 4, name: "Screen", price: 199}
   ]);
-  const [total, setTotal] = useState(5);
 
-  // Add Item
-  const addItem = (item) => {
-    setItems([...items, item]);
-    setTotal(total + item.price);
+
+  const addToCart = (product) => {
+    setCartItems((prevItems) => {
+      const existingItem = prevItems.find((item) => item.id === product.id);
+      if (existingItem) {
+        return prevItems.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      }
+      return [...prevItems, { ...product, quantity: 1 }];
+    });
   };
 
-  // Remove Item
-  const removeItem = (index) => {
-    const removedItem = items[index];
-    setItems(items.filter((_, i) => i !== index));
-    setTotal(total - removedItem.price);
-  };
 
-  // Update Item
-  const updateItem = (index, updatedItem) => {
-    const oldItem = items[index];
-    const newItems = items.map((item, i) =>
-      i === index ? updatedItem : item
+  const removeFromCart = (productId) => {
+    setCartItems((prevItems) =>
+      prevItems.filter((item) => item.id !== productId)
     );
+  };
 
-    // Update state
-    setItems(newItems);
-    setTotal(total - oldItem.price + updatedItem.price);
+ 
+  const updateQuantity = (productId, newQuantity) => {
+    if (newQuantity === 0) {
+      removeFromCart(productId);
+      return;
+    }
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === productId ? { ...item, quantity: newQuantity } : item
+      )
+    );
+  };
+
+
+  const getTotalPrice = () => {
+    return cartItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
   };
 
   return (
-    <div className="shopping-cart">
-      <h2>Shopping Cart</h2>
-      <div className="items">
-        {items.map((item, index) => (
-          <CartItem
-            key={index}
-            item={item}
-            onRemove={() => removeItem(index)}
-            onUpdate={(updatedItem) => updateItem(index, updatedItem)}
-          />
-        ))}
+    <div style={styles.app}>
+      <h1>🛒 Shopping Cart Demo</h1>
+      <div style={styles.content}>
+        <ProductList products={products} onAddToCart={addToCart} />
+        <Cart
+          items={cartItems}
+          onRemoveFromCart={removeFromCart}
+          onUpdateQuantity={updateQuantity}
+          totalPrice={getTotalPrice()}
+        />
       </div>
-      <div className="total">
-        <h3>Total: ${total.toFixed(2)}</h3>
-      </div>
-      <AddItemForm onAddItem={addItem} />
     </div>
   );
 }
 
-// Cart Item with Update Button
-function CartItem({ item, onRemove, onUpdate }) {
-  const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState(item.name);
-  const [price, setPrice] = useState(item.price);
-
-  const handleUpdate = () => {
-    onUpdate({ name, price: parseFloat(price) });
-    setIsEditing(false);
-  };
-
+function ProductList({ products, onAddToCart }) {
   return (
-    <div className="cart-item">
-      {isEditing ? (
-        <>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <input
-            type="number"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          />
-          <button onClick={handleUpdate}>Save</button>
-          <button onClick={() => setIsEditing(false)}>Cancel</button>
-        </>
+    <div style={styles.productList}>
+      <h2>Products</h2>
+      {products.map((product) => (
+        <ProductItem
+          key={product.id}
+          product={product}
+          onAddToCart={onAddToCart}
+        />
+      ))}
+    </div>
+  );
+}
+
+
+function ProductItem({ product, onAddToCart }) {
+  return (
+    <div style={styles.productItem}>
+      <h3>{product.name}</h3>
+      <p>${product.price}</p>
+      <button style={styles.button} onClick={() => onAddToCart(product)}>
+        Add to Cart
+      </button>
+    </div>
+  );
+}
+
+
+function Cart({ items, onRemoveFromCart, onUpdateQuantity, totalPrice }) {
+  return (
+    <div style={styles.cart}>
+      <h2>Shopping Cart</h2>
+      {items.length === 0 ? (
+        <p>Your cart is empty</p>
       ) : (
         <>
-          <span>{item.name}</span>
-          <span>${item.price}</span>
-          <button onClick={() => setIsEditing(true)}>Update</button>
-          <button onClick={onRemove}>Remove</button>
+          {items.map((item) => (
+            <CartItem
+              key={item.id}
+              item={item}
+              onRemove={onRemoveFromCart}
+              onUpdateQuantity={onUpdateQuantity}
+            />
+          ))}
+          <div style={styles.total}>
+            <h3>Total: ${totalPrice.toFixed(2)}</h3>
+          </div>
         </>
       )}
     </div>
   );
 }
 
-// Form for Adding Items
-function AddItemForm({ onAddItem }) {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!name || !price) return;
-    onAddItem({ name, price: parseFloat(price) });
-    setName("");
-    setPrice("");
-  };
-
+function CartItem({ item, onRemove, onUpdateQuantity }) {
   return (
-    <form onSubmit={handleSubmit} className="add-item-form">
-      <input
-        type="text"
-        placeholder="Item name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="Price"
-        value={price}
-        onChange={(e) => setPrice(e.target.value)}
-      />
-      <button type="submit">Add Item</button>
-    </form>
+    <div style={styles.cartItem}>
+      <h4>{item.name}</h4>
+      <p>${item.price} each</p>
+      <div style={styles.quantityControls}>
+        <button
+          style={styles.smallButton}
+          onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}
+        >
+          -
+        </button>
+        <span>Quantity: {item.quantity}</span>
+        <button
+          style={styles.smallButton}
+          onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+        >
+          +
+        </button>
+      </div>
+      <button style={styles.removeButton} onClick={() => onRemove(item.id)}>
+        Remove
+      </button>
+    </div>
   );
 }
 
-export default ShoppingCart;
+
+const styles = {
+  app: {
+    fontFamily: "Arial, sans-serif",
+    padding: "20px",
+    textAlign: "center",
+  },
+  content: {
+    display: "flex",
+    justifyContent: "space-around",
+    marginTop: "20px",
+  },
+  productList: {
+    border: "1px solid #ddd",
+    padding: "15px",
+    borderRadius: "8px",
+    width: "40%",
+  },
+  productItem: {
+    marginBottom: "15px",
+    padding: "10px",
+    border: "1px solid #eee",
+    borderRadius: "6px",
+  },
+  cart: {
+    border: "1px solid #ddd",
+    padding: "15px",
+    borderRadius: "8px",
+    width: "40%",
+    textAlign: "left",
+  },
+  cartItem: {
+    borderBottom: "1px solid #eee",
+    padding: "10px 0",
+  },
+  quantityControls: {
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+    margin: "10px 0",
+  },
+  button: {
+    padding: "6px 12px",
+    background: "#007bff",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+  },
+  smallButton: {
+    padding: "4px 8px",
+    background: "#28a745",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+  },
+  removeButton: {
+    padding: "4px 10px",
+    background: "#dc3545",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+  },
+  total: {
+    marginTop: "20px",
+    fontWeight: "bold",
+    fontSize: "18px",
+  },
+};
+
+export default ShoppingApp;
